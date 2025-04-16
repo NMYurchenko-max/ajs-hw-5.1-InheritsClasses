@@ -23,23 +23,31 @@ project-root/
 ├── package.json
 ├── coverage/                # Папка для покрытия тестов
 ├── dist/                    # Папка для выходных файлов
-│   └── index.html           # Скомпилированный HTML файл
-│   └── bundle.js            # Скомпилированный JavaScript файл
-|   └── style.css            # Скомпилированный CSS файл
+│   ├── index.html           # Скомпилированный HTML файл
+│   ├── bundle.js            # Скомпилированный JavaScript файл
+│   └── style.css            # Скомпилированный CSS файл
 ├── src/
 │   ├── index.html           # Файл HTML (главный файл)
-|   ├── index.js             # скрипты и стили не подключать (структура, блоки)
+│   ├── index.js             # Скрипты и стили не подключать (структура, блоки)
 │   ├── js/                  # Папка для JavaScript файлов 
-│   │    ├── Character.js    # Родительский класс персонажей:характеристики поумолчанию
-│   │    │ heajth(уровень здоровье): 100%, level(уровень персонажа) :1
-│   │    │# attack/defense (атака/защита) персонажей ('name'):
-│   │    ├─  characterTypes.js   # Классы наследников от Character
-│   │    └── app.js           # Главный файл приложения 
+│   │    ├── classes/        # Папка для классов
+│   │    │    ├── Character.js    # Родительский класс персонажей
+│   │    │    ├── Bowman.js       # Класс Bowman
+│   │    │    ├── Swordsman.js    # Класс Swordsman
+│   │    │    ├── Magician.js     # Класс Magician
+│   │    │    ├── Undead.js       # Класс Undead
+│   │    │    ├── Zombie.js       # Класс Zombie
+│   │    │    └── Daemon.js       # Класс Daemon
+│   │    ├── utils/функции сортировки  # Папка для утилит
+│   │    ├── app.js           # Главный файл приложения 
 │   │    └── __tests__/       # Папка для тестов
-│   │            ├── сharacter.test.js
-│   │            ├── characterTypes.test.js
-│   │            
-│   │
+│   │        ├── character.test.js
+│   │        ├── bowman.test.js
+│   │        ├── swordsman.test.js
+│   │        ├── magician.test.js
+│   │        ├── undead.test.js
+│   │        ├── zombie.test.js
+│   │        └── daemon.test.js
 │   └── css/                 # Папка для CSS файлов
 │       └── styles.css       # Файл стилей
 └── webpack.config.js
@@ -83,14 +91,15 @@ export default class Character {
 Дочерние классы наследуют свойства и методы от базового класса и добавляют свои уникальные характеристики, например:
 
 ```js
+//.clases/Bowman.js
 import Character from './Character';
 
-class Bowerman extends Character {
+class Bowman extends Character {
   constructor(name) {
     // наследуем
     super(name); 
     // добавляем свои характеристики
-    this.type = "Bowerman";
+    this.type = "Bowman";
     this.attack = 25; 
     this.defence = 25;
   }
@@ -111,7 +120,7 @@ class Bowerman extends Character {
 `toBeDefined()` - Проверяет, что переменная не равна undefined.
 `toBeTruthy()` - Проверяет, что переменная равна true.
 
-Установлено 2 файла теста (для базового класса и классов) по принципу 100% покрытия:
+Установливаем тесты для базового класса и классов по принципу 100% покрытия.
 
 **Проверяем родительский класс** `character.test.js`
 (src/tests/character.test.js)
@@ -124,8 +133,8 @@ class Bowerman extends Character {
 - Проверка на строку
 - Проверка пограничных значений чисел
 
-**Проверяем дочерние классы** `characterTypes.test`
-(src/tests/characterTypes.test.js)
+**Проверяем дочерние классы** 
+(src/tests/`name.test`.js)
 
 Проверяется каждый тип персонажа и проверяются его характеристики на соответствие
 
